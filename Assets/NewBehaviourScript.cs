@@ -20,7 +20,7 @@ public class NewBehaviourScript : MonoBehaviour
         wall.transform.localPosition.Set(0, 0, 0);
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         //sphere.AddComponent<Rigidbody>();
-        sphere.transform.position = new Vector3(0, 0, 0);
+        sphere.transform.position = new Vector3(5, 0, 5);
     }
 
     // Update is called once per frame
