@@ -20,20 +20,21 @@ public class CreationUtil
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Vector3 position = new Vector3(Random.Range(-10f, 10f), Random.Range(-5f, 10f), Random.Range(-10f, 10f));
         sphere.transform.position = position;
-        sphere.AddComponent<Rigidbody>();
-        sphere.GetOrAddComponent<SphereCollider>().isTrigger = false;
+        sphere.AddComponent<SphereEntity>();
+        //sphere.AddComponent<Rigidbody>();
+        //sphere.GetOrAddComponent<SphereCollider>().isTrigger = false;
 
-        PhysicMaterial material = new PhysicMaterial();
-        material.bounciness = 0.5f;
-        sphere.GetOrAddComponent<SphereCollider>().material = material;
+        //PhysicMaterial material = new PhysicMaterial();
+        //material.bounciness = 0.5f;
+        //sphere.GetOrAddComponent<SphereCollider>().material = material;
 
-        Vector3 direction = Vector3.zero - position;
-        direction.Normalize();
+        //Vector3 direction = Vector3.zero - position;
+        //direction.Normalize();
         //sphere.GetComponent<Rigidbody>().AddForce(new Vector3(sphere.transform.position.x * -1, 0, sphere.transform.position.z * -1), ForceMode.VelocityChange);
         // TODO: calculer pour la gravitée
-        sphere.GetComponent<Rigidbody>().AddForce(Vector3.Distance(Vector3.zero, position) * direction, ForceMode.VelocityChange);
+        //sphere.GetComponent<Rigidbody>().AddForce(Vector3.Distance(Vector3.zero, position) * direction, ForceMode.VelocityChange);
 
-        sphere.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
+        //sphere.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
 
     }
 
