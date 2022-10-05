@@ -22,6 +22,7 @@ public class PhysicsUtil
         return acceleration * timeElapsed;
     }
 
+    // Source des formules https://lambdageeks.com/how-to-find-velocity-with-height-and-distance/
     public static Vector3 CalculateInitialVelocityToHitTarget(Vector3 objectPos, Vector3 targetPos, float airTime)
     {
         float height = targetPos.y - objectPos.y;
