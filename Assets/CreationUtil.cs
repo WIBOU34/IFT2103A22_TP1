@@ -20,6 +20,7 @@ public class CreationUtil
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Vector3 position = new Vector3(Random.Range(-10f, 10f), Random.Range(-5f, 10f), Random.Range(-10f, 10f));
         sphere.transform.position = position;
+        sphere.AddComponent<RigidBodyCustom>();
         sphere.AddComponent<SphereEntity>();
         //sphere.AddComponent<Rigidbody>();
         //sphere.GetOrAddComponent<SphereCollider>().isTrigger = false;
