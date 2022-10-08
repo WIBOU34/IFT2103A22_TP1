@@ -5,6 +5,7 @@ using UnityEngine;
 public class SphereEntity : MonoBehaviour
 {
     private Vector3 targetPosition = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +22,13 @@ public class SphereEntity : MonoBehaviour
     {
         float elapsedTime = Time.fixedDeltaTime;
         this.GetComponent<RigidBodyCustom>().CalculatePositionAndVelocity(elapsedTime);
+    }
+
+    //Event tiggered when sphere enters in collision with another object
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("La sphere entre en collision!");
+        Renderer sphereRenderer = this.gameObject.GetComponent<Renderer>();
+        sphereRenderer.material.SetColor("_Color", Color.red);
     }
 }

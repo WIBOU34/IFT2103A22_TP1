@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -22,6 +23,9 @@ public class CreationUtil
         sphere.transform.position = position;
         sphere.AddComponent<RigidBodyCustom>().Mass = 1;
         sphere.AddComponent<SphereEntity>();
+
+        sphere.AddComponent<SphereCollider>().isTrigger = true;
+
         //sphere.AddComponent<Rigidbody>();
         //sphere.GetOrAddComponent<SphereCollider>().isTrigger = false;
 
@@ -48,6 +52,9 @@ public class CreationUtil
         wall.AddComponent<Rigidbody>().useGravity = false;
         wall.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
         wall.GetComponent<Rigidbody>().isKinematic = true;
+
+        wall.AddComponent<WallEntity>();
+        wall.AddComponent<BoxCollider>().isTrigger = true;
     }
 
     public void CreateBounds()
