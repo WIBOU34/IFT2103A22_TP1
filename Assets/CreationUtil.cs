@@ -21,17 +21,17 @@ public class CreationUtil
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Vector3 position = new Vector3(Random.Range(-10f, 10f), Random.Range(-5f, 10f), Random.Range(-10f, 10f));
         sphere.transform.position = position;
-        sphere.AddComponent<RigidBodyCustom>().Mass = 1;
-        sphere.AddComponent<SphereEntity>();
+        //sphere.AddComponent<RigidBodyCustom>().Mass = 1;
+        //sphere.AddComponent<SphereEntity>();
 
-        sphere.AddComponent<SphereCollider>().isTrigger = true;
+        //sphere.AddComponent<SphereCollider>().isTrigger = true;
 
-        //sphere.AddComponent<Rigidbody>();
+        sphere.AddComponent<Rigidbody>();
         //sphere.GetOrAddComponent<SphereCollider>().isTrigger = false;
 
-        //PhysicMaterial material = new PhysicMaterial();
-        //material.bounciness = 0.5f;
-        //sphere.GetOrAddComponent<SphereCollider>().material = material;
+        PhysicMaterial material = new PhysicMaterial();
+        material.bounciness = 0.5f;
+        sphere.GetOrAddComponent<SphereCollider>().material = material;
 
         //Vector3 direction = Vector3.zero - position;
         //direction.Normalize();
@@ -40,7 +40,7 @@ public class CreationUtil
         //sphere.GetComponent<Rigidbody>().AddForce(Vector3.Distance(Vector3.zero, position) * direction, ForceMode.VelocityChange);
 
         //sphere.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
-
+        sphere.GetComponent<Rigidbody>().velocity = PhysicsUtil.CalculateInitialVelocityToHitTarget(position, Vector3.zero, 2);
     }
 
     public void CreateWall()
@@ -53,8 +53,8 @@ public class CreationUtil
         wall.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
         wall.GetComponent<Rigidbody>().isKinematic = true;
 
-        wall.AddComponent<WallEntity>();
-        wall.AddComponent<BoxCollider>().isTrigger = true;
+        //wall.AddComponent<WallEntity>();
+        //wall.AddComponent<BoxCollider>().isTrigger = true;
     }
 
     public void CreateBounds()
