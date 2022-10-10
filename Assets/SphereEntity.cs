@@ -49,23 +49,51 @@ public class SphereEntity : MonoBehaviour
 
             Vector3 normal = new(1, 1, 1);
 
+            Vector3 p1 = Vector3.zero;
+            Vector3 p2 = Vector3.zero;
+            Vector3 p3 = Vector3.zero;
+
             //Top of the wall 
-            if (impactPosition.y == wallBounds.max.y && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z)
+            if (impactPosition.y == wallBounds.max.y) // && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z
             {
-                Vector3 p1 = wallBounds.max;
-                Vector3 p2 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
-                Vector3 p3 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
-
-                var dir = Vector3.Cross(p2 - p1, p3 - p1);
-                normal = Vector3.Normalize(dir).normalized;
-
+                collisionWithWall = false; //Pour ne pas que la balle traverse à travers le mur...
+                p1 = wallBounds.max;
+                p2 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
+                p3 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
             }
+            else if (impactPosition.x == wallBounds.max.x) //Face droite
+            {
+                p1 = wallBounds.max;
+                p2 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
+                p3 = new(wallBounds.max.x, wallBounds.min.y, wallBounds.min.z);
+            }
+            else if (impactPosition.x == wallBounds.min.x) //Face gauche
+            {
+                p1 = wallBounds.min;
+                p2 = new(wallBounds.min.x, wallBounds.min.y, wallBounds.max.z);
+                p3 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.max.z);
+            }
+            else if (impactPosition.z == wallBounds.max.z) //Face cachée
+            {
+                p1 = wallBounds.max;
+                p2 = new(wallBounds.max.x, wallBounds.min.y, wallBounds.max.z);
+                p3 = new(wallBounds.min.x, wallBounds.min.y, wallBounds.max.z);
+            }
+            else if (impactPosition.z == wallBounds.min.z) //face devant
+            {
+                p1 = wallBounds.min;
+                p2 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
+                p3 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
+            }
+
+            var dir = Vector3.Cross(p2 - p1, p3 - p1);
+            normal = Vector3.Normalize(dir).normalized;
 
             var dot = Vector3.Dot(normal, velocite);
 
             normal = new(2 * dot * normal.x, 2 * dot * normal.y, 2 * dot * normal.z);
             velocite -= normal;
-            velocite = new(velocite.x / 4, velocite.y / 4, velocite.z / 4);
+            velocite = new(velocite.x / 2, velocite.y / 2, velocite.z / 2);
 
             this.gameObject.GetComponent<RigidBodyCustom>().Velocity = velocite;
         }        
