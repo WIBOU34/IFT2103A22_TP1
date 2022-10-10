@@ -5,7 +5,6 @@ using UnityEngine;
 public class SphereEntity : MonoBehaviour
 {
     private Vector3 targetPosition = Vector3.zero;
-    public bool collisionWithGround = false;
     private bool collisionWithWall = false;
 
     // Start is called before the first frame update

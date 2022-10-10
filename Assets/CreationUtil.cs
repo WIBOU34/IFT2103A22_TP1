@@ -24,7 +24,7 @@ public class CreationUtil
         sphere.AddComponent<RigidBodyCustom>().Mass = 1; //
         sphere.AddComponent<SphereEntity>(); //
 
-        sphere.AddComponent<SphereCollider>().isTrigger = false; //
+        sphere.AddComponent<SphereCollider>().isTrigger = true; //
 
         //sphere.AddComponent<Rigidbody>();
         //sphere.GetOrAddComponent<SphereCollider>().isTrigger = false;
@@ -64,7 +64,7 @@ public class CreationUtil
         bounds.name = "Bounds";
         bounds.transform.position = new Vector3(0, -5, 0);
         bounds.transform.localScale = new Vector3(50, 0.1f, 50);
-        bounds.GetOrAddComponent<BoxCollider>().isTrigger = true;
+        bounds.GetOrAddComponent<BoxCollider>().isTrigger = false;
         bounds.AddComponent<Rigidbody>().useGravity = false;
         bounds.AddComponent<BoundsScript>();
     }

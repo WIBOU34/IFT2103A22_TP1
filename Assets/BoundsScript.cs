@@ -18,11 +18,7 @@ public class BoundsScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.GetComponent<SphereEntity>().collisionWithGround)
-        {
-            other.gameObject.GetComponent<SphereEntity>().collisionWithGround = true;
-            creationUtil.CreateSphere();
-            Destroy(other.gameObject);
-        }
+        creationUtil.CreateSphere();
+        Destroy(other.gameObject);
     }
 }
