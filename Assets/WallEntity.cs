@@ -21,6 +21,11 @@ namespace Assets
 
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("Test");
+        }
+
         //Event tiggered when collision occured with the wall
         private void OnTriggerEnter(Collider other)
         {
