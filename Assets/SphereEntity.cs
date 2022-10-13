@@ -60,43 +60,13 @@ public class SphereEntity : MonoBehaviour
 
         Bounds wallBounds = other.bounds;
         
-
         Vector3 p1 = Vector3.zero;
         Vector3 p2 = Vector3.zero;
         Vector3 p3 = Vector3.zero;
 
         Vector3 normal = Vector3.zero;
 
-
-        if (impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.max.y) //Coin Supérieur Gauche
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.max.y) //Coin Supérieur Droit
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.z == wallBounds.min.z && impactPosition.y == wallBounds.max.y) //Coin Supérieur Avant
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.z == wallBounds.max.z && impactPosition.y == wallBounds.max.y) //Coin Supérieur Arrière
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.x == wallBounds.min.x && impactPosition.z == wallBounds.min.z) //Coin Latéral Avant Gauche
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.x == wallBounds.max.x && impactPosition.z == wallBounds.min.z) //Coin Latéral Avant Droit
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.x == wallBounds.min.x && impactPosition.z == wallBounds.max.z) //Coin Latéral Arrière Gauche
-        {
-            normal = (impactPosition - this.gameObject.transform.position).normalized;
-        }
-        else if (impactPosition.x == wallBounds.max.x && impactPosition.z == wallBounds.max.z) //Coin Latéral Arrière droit
+        if (BallHitsACorner(impactPosition, wallBounds))
         {
             normal = (impactPosition - this.gameObject.transform.position).normalized;
         }
@@ -128,13 +98,20 @@ public class SphereEntity : MonoBehaviour
             p2 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
             p3 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
         }
-        else if (impactPosition.y == wallBounds.max.y) //Top of the wall // && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z
+        else if (impactPosition.y == wallBounds.max.y) //Top of the wall
         {
             Debug.Log("Dessus");
             p1 = wallBounds.max;
             p2 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
             p3 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
             dessusMur = true;
+        }
+        else if (impactPosition.y == wallBounds.min.y) //Dessous du mur
+        {
+            Debug.Log("Dessous");
+            p1 = wallBounds.min;
+            p2 = new(wallBounds.max.x, wallBounds.min.y, wallBounds.min.z);
+            p3 = new(wallBounds.min.x, wallBounds.min.y, wallBounds.max.z);
         }
 
         if (normal == Vector3.zero)
@@ -151,5 +128,29 @@ public class SphereEntity : MonoBehaviour
 
         this.gameObject.GetComponent<RigidBodyCustom>().Velocity = velocite;
         collisionOccured = false;
+    }
+
+    private bool BallHitsACorner(Vector3 impactPosition, Bounds wallBounds)
+    {
+        return impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.max.y && impactPosition.z == wallBounds.min.z || //Sommet Sup Avant Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.max.y && impactPosition.z == wallBounds.min.z || //Sommet Sup Avant Droit
+               impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.max.y && impactPosition.z == wallBounds.max.z || //Sommet Sup Arrière Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.max.y && impactPosition.z == wallBounds.max.z || //Sommet Sup Arrière Droit
+               impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.min.y && impactPosition.z == wallBounds.min.z || //Sommet Inf Avant Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.min.y && impactPosition.z == wallBounds.min.z || //Sommet Inf Avant Droit
+               impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.min.y && impactPosition.z == wallBounds.max.z || //Sommet Inf Arrière Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.min.y && impactPosition.z == wallBounds.max.z || //Sommet Inf Arrière Droit
+               impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.max.y || //Coin Supérieur Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.max.y || //Coin Supérieur Droit
+               impactPosition.z == wallBounds.min.z && impactPosition.y == wallBounds.max.y || //Coin Supérieur Avant
+               impactPosition.z == wallBounds.max.z && impactPosition.y == wallBounds.max.y || //Coin Supérieur Arrière
+               impactPosition.x == wallBounds.min.x && impactPosition.z == wallBounds.min.z || //Coin Latéral Avant Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.z == wallBounds.min.z || //Coin Latéral Avant Droit
+               impactPosition.x == wallBounds.min.x && impactPosition.z == wallBounds.max.z || //Coin Latéral Arrière Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.z == wallBounds.max.z || //Coin Latéral Arrière droit
+               impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.min.y || //Coin Inf Gauche
+               impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.min.y || //Coin Inf Droit
+               impactPosition.z == wallBounds.min.z && impactPosition.y == wallBounds.min.y || //Coin Inf Avant
+               impactPosition.z == wallBounds.max.z && impactPosition.y == wallBounds.min.y; //Coin Inf Arrière
     }
 }
