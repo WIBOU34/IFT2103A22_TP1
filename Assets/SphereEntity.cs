@@ -124,7 +124,7 @@ public class SphereEntity : MonoBehaviour
 
         normal = new(2 * dot * normal.x, 2 * dot * normal.y, 2 * dot * normal.z);
         velocite -= normal;
-        velocite = new(velocite.x, velocite.y / 2, velocite.z);
+        velocite = new(velocite.x / 1.20f, velocite.y / 1.20f, velocite.z / 1.20f);
 
         this.gameObject.GetComponent<RigidBodyCustom>().Velocity = velocite;
         collisionOccured = false;
