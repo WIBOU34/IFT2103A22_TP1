@@ -58,13 +58,49 @@ public class SphereEntity : MonoBehaviour
 
         impactPosition = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
 
-        Bounds wallBounds = other.gameObject.GetComponent<Renderer>().bounds;
+        Bounds wallBounds = other.bounds;
+        
 
         Vector3 p1 = Vector3.zero;
         Vector3 p2 = Vector3.zero;
         Vector3 p3 = Vector3.zero;
 
-        if (impactPosition.x == wallBounds.max.x) //Face droite
+        Vector3 normal = Vector3.zero;
+
+
+        if (impactPosition.x == wallBounds.min.x && impactPosition.y == wallBounds.max.y) //Coin Supérieur Gauche
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.x == wallBounds.max.x && impactPosition.y == wallBounds.max.y) //Coin Supérieur Droit
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.z == wallBounds.min.z && impactPosition.y == wallBounds.max.y) //Coin Supérieur Avant
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.z == wallBounds.max.z && impactPosition.y == wallBounds.max.y) //Coin Supérieur Arrière
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.x == wallBounds.min.x && impactPosition.z == wallBounds.min.z) //Coin Latéral Avant Gauche
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.x == wallBounds.max.x && impactPosition.z == wallBounds.min.z) //Coin Latéral Avant Droit
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.x == wallBounds.min.x && impactPosition.z == wallBounds.max.z) //Coin Latéral Arrière Gauche
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.x == wallBounds.max.x && impactPosition.z == wallBounds.max.z) //Coin Latéral Arrière droit
+        {
+            normal = (impactPosition - this.gameObject.transform.position).normalized;
+        }
+        else if (impactPosition.x == wallBounds.max.x) //Face droite
         {
             Debug.Log("Droite");
             p1 = wallBounds.max;
@@ -101,8 +137,11 @@ public class SphereEntity : MonoBehaviour
             dessusMur = true;
         }
 
-        var dir = Vector3.Cross(p2 - p1, p3 - p1);
-        Vector3 normal = Vector3.Normalize(dir).normalized;
+        if (normal == Vector3.zero)
+        {
+            var dir = Vector3.Cross(p2 - p1, p3 - p1);
+            normal = Vector3.Normalize(dir).normalized;
+        }
 
         var dot = Vector3.Dot(normal, velocite);
 
