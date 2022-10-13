@@ -60,7 +60,6 @@ public class SphereEntity : MonoBehaviour
         Vector3 p2 = Vector3.zero;
         Vector3 p3 = Vector3.zero;
 
-        //Top of the wall 
         if (impactPosition.x == wallBounds.max.x) //Face droite
         {
             Debug.Log("Droite");
@@ -89,7 +88,7 @@ public class SphereEntity : MonoBehaviour
             p2 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
             p3 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
         }
-        else if (impactPosition.y == wallBounds.max.y) // && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z
+        else if (impactPosition.y == wallBounds.max.y) //Top of the wall // && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z
         {
             Debug.Log("Dessus");
             p1 = wallBounds.max;
