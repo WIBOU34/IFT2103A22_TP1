@@ -9,8 +9,6 @@ using UnityEngine;
 public class StartCreation : MonoBehaviour
 {
     private CreationUtil creationUtil;
-    //private GameObject sphere;
-    //private GameObject wall;
     // Start is called before the first frame update
     void Start()
     {

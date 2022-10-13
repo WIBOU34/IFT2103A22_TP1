@@ -18,6 +18,7 @@ public class BoundsScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collision avec le sol!");
         creationUtil.CreateSphere();
         Destroy(other.gameObject);
     }
