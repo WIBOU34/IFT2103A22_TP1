@@ -19,6 +19,7 @@ public class CreationUtil
     public void CreateSphere()
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.name = "Ball";
         Vector3 position = new Vector3(Random.Range(-10f, 10f), Random.Range(-5f, 10f), Random.Range(-10f, 10f));
         sphere.transform.position = position;
         sphere.AddComponent<RigidBodyCustom>().Mass = 1; //
@@ -55,7 +56,7 @@ public class CreationUtil
         //wall.AddComponent<RigidBodyCustom>();
 
         wall.AddComponent<WallEntity>();
-        wall.AddComponent<BoxCollider>().isTrigger = true;
+        //wall.AddComponent<BoxCollider>().isTrigger = true;
     }
 
     public void CreateBounds()

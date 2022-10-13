@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,12 @@ public class RigidBodyCustom : MonoBehaviour
     {
         CalculateVelocity(timeElapsed);
         CalculatePosition(timeElapsed);
+
+        if (this.gameObject == GameObject.Find("Ball") && this.gameObject.GetComponent<SphereEntity>().collisionWithWall && BallPenetratesWall(timeElapsed))
+        {
+            float positionY = GameObject.Find("Wall").GetComponent<Renderer>().bounds.max.y + this.gameObject.GetComponent<SphereCollider>().radius;
+            this.transform.position = new Vector3(this.transform.position.x, positionY, this.transform.position.z);
+        }
     }
 
     public void CalculatePosition(float timeElapsed)
@@ -73,5 +80,31 @@ public class RigidBodyCustom : MonoBehaviour
             }
             return acceleration / mass;
         }
+    }
+
+    private bool BallPenetratesWall(float timeElapsed)
+    {
+        bool ballPenetratesWall = false;
+
+        if (this.gameObject == GameObject.Find("Ball"))
+        {
+            SphereEntity sphereEntity = this.gameObject.GetComponent<SphereEntity>();
+            Vector3 ballPositionOnImpact = sphereEntity.BallPositionOnImpact;
+
+            Vector3 translation = this.transform.position - ballPositionOnImpact;
+            Vector3 impactPositionOnBall = sphereEntity.impactPosition + translation;
+
+            GameObject wall = GameObject.Find("Wall");
+            Bounds wallBounds = wall.gameObject.GetComponent<Renderer>().bounds;
+            
+            if (impactPositionOnBall.x < wallBounds.max.x && impactPositionOnBall.x > wallBounds.min.x &&
+                impactPositionOnBall.y < wallBounds.max.y && impactPositionOnBall.y > wallBounds.min.y &&
+                impactPositionOnBall.z < wallBounds.max.z && impactPositionOnBall.z > wallBounds.min.z)
+            {
+                ballPenetratesWall = true;
+            }
+        }
+
+        return ballPenetratesWall;
     }
 }
