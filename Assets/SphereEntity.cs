@@ -61,15 +61,7 @@ public class SphereEntity : MonoBehaviour
         Vector3 p3 = Vector3.zero;
 
         //Top of the wall 
-        if (impactPosition.y == wallBounds.max.y) // && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z
-        {
-            Debug.Log("Dessus");
-            p1 = wallBounds.max;
-            p2 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
-            p3 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
-            dessusMur = true;
-        }
-        else if (impactPosition.x == wallBounds.max.x) //Face droite
+        if (impactPosition.x == wallBounds.max.x) //Face droite
         {
             Debug.Log("Droite");
             p1 = wallBounds.max;
@@ -96,6 +88,14 @@ public class SphereEntity : MonoBehaviour
             p1 = wallBounds.min;
             p2 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
             p3 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
+        }
+        else if (impactPosition.y == wallBounds.max.y) // && impactPosition.x != wallBounds.max.x && impactPosition.x != wallBounds.min.x && impactPosition.z != wallBounds.max.z && impactPosition.z != wallBounds.min.z
+        {
+            Debug.Log("Dessus");
+            p1 = wallBounds.max;
+            p2 = new(wallBounds.max.x, wallBounds.max.y, wallBounds.min.z);
+            p3 = new(wallBounds.min.x, wallBounds.max.y, wallBounds.min.z);
+            dessusMur = true;
         }
 
         var dir = Vector3.Cross(p2 - p1, p3 - p1);
