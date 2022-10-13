@@ -6,7 +6,7 @@ public class SphereEntity : MonoBehaviour
 {
     private Vector3 targetPosition = Vector3.zero;
     public bool collisionWithWall = false;
-
+    private bool collisionOccured = false;
     public bool dessusMur = false;
     public Vector3 impactPosition = Vector3.zero;
     public Vector3 BallPositionOnImpact = Vector3.zero;
@@ -25,8 +25,11 @@ public class SphereEntity : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float elapsedTime = Time.fixedDeltaTime;
-        this.GetComponent<RigidBodyCustom>().CalculatePositionAndVelocity(elapsedTime);
+        if (!collisionOccured)
+        {
+            float elapsedTime = Time.fixedDeltaTime;
+            this.GetComponent<RigidBodyCustom>().CalculatePositionAndVelocity(elapsedTime);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -42,6 +45,7 @@ public class SphereEntity : MonoBehaviour
     //Event tiggered when sphere enters in collision with another object
     private void OnTriggerEnter(Collider other)
     {
+        collisionOccured = true;
         BallPositionOnImpact = this.gameObject.transform.position;
         if (other.gameObject == GameObject.Find("Wall"))
         {
@@ -107,5 +111,6 @@ public class SphereEntity : MonoBehaviour
         velocite = new(velocite.x, velocite.y / 2, velocite.z);
 
         this.gameObject.GetComponent<RigidBodyCustom>().Velocity = velocite;
+        collisionOccured = false;
     }
 }
