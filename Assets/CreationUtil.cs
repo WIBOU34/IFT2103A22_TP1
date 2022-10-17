@@ -33,6 +33,7 @@ public class CreationUtil
         wall.AddComponent<Rigidbody>().useGravity = false;
         wall.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
         wall.GetComponent<Rigidbody>().isKinematic = true;
+        wall.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         wall.AddComponent<WallEntity>();
     }
 
@@ -40,11 +41,12 @@ public class CreationUtil
     {
         GameObject bounds = GameObject.CreatePrimitive(PrimitiveType.Cube);
         bounds.name = "Bounds";
-        bounds.transform.position = new Vector3(0, -5, 0);
+        bounds.transform.position = new Vector3(X_CENTER, Y_CENTER - 5, Z_CENTER);
         bounds.transform.localScale = new Vector3(50, 0.1f, 50);
         bounds.GetOrAddComponent<BoxCollider>().isTrigger = false;
         bounds.AddComponent<Rigidbody>().useGravity = false;
         bounds.GetComponent<Rigidbody>().isKinematic = false;
+        bounds.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         bounds.AddComponent<BoundsScript>();
     }
 }
