@@ -53,8 +53,6 @@ public class SphereEntity : MonoBehaviour
     //Event tiggered when sphere enters in collision with another object
     private void OnTriggerEnter(Collider other)
     {
-        collisionOccured = true;
-        BallPositionOnImpact = this.gameObject.transform.position;
         if (other.gameObject == GameObject.Find("Wall"))
         {
             collisionWithWall = true;
@@ -62,6 +60,8 @@ public class SphereEntity : MonoBehaviour
         {
             return; // on ne veut pas gérer les collisions avec les autres objets que le mur
         }
+        collisionOccured = true;
+        BallPositionOnImpact = this.gameObject.transform.position;
 
         Renderer sphereRenderer = this.gameObject.GetComponent<Renderer>();
         sphereRenderer.material.SetColor("_Color", Color.red);

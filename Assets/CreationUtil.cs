@@ -41,12 +41,12 @@ public class CreationUtil
     {
         GameObject bounds = GameObject.CreatePrimitive(PrimitiveType.Cube);
         bounds.name = "Bounds";
-        bounds.transform.position = new Vector3(X_CENTER, Y_CENTER - 5, Z_CENTER);
+        bounds.transform.position = new Vector3(X_CENTER, Y_CENTER - 6, Z_CENTER);
         bounds.transform.localScale = new Vector3(50, 0.1f, 50);
+        bounds.AddComponent<BoundsScript>();
         bounds.GetOrAddComponent<BoxCollider>().isTrigger = false;
         bounds.AddComponent<Rigidbody>().useGravity = false;
         bounds.GetComponent<Rigidbody>().isKinematic = false;
         bounds.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        bounds.AddComponent<BoundsScript>();
     }
 }
