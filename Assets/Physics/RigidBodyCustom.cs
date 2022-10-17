@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RigidBodyCustom : MonoBehaviour
@@ -60,7 +57,7 @@ public class RigidBodyCustom : MonoBehaviour
         velocity.z = zVelocity;
     }
 
-    // calculates acceleration including gravity unless mass is 0
+    // calculates acceleration
     private Vector3 CalculateAcceleration(Vector3 forces)
     {
         return forces / mass;
